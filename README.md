@@ -1,10 +1,64 @@
 # Battlesnake JS
 
-A wrapper library and types for Battlesnake, written in Typescript. Should work, but ymmv for now!
+_This package isn't yet on a package registry, I don't want to namesquat._
+
+A wrapper library and types for Battlesnake, written in Typescript. Should work,
+but ymmv for now!
+
+Battlesnake JS makes it really easy to write Battlesnakes in Typescript or
+Javascript. Features include:
+
+- TSDoc annotations for in-editor docs and intellisense
+- A concise, type safe API for implementing snakes, without worrying about HTTP
+  or infra dependencies, so that you can focus on your snake logic
+- ....more to come!
+
+### Example Battlesnake
+
+```ts
+import { BattleSnake } from "battlesnake-js-bindings-and-types";
+
+const mySnake = BattleSnake("super-perfect-snake", {
+  apiversion: "1",
+  author: "",
+  color: "#888888",
+  head: "default",
+  tail: "default",
+  version: "0.0.1",
+});
+
+mySnake.onStartGame((gameData) => {
+  console.log(gameData);
+
+  console.log("START");
+});
+
+mySnake.onMove((gameData) => {
+  console.log(gameData);
+
+  var possibleMoves = ["up", "down", "left", "right"] as const;
+  var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+
+  console.log("MOVE: " + move);
+  return {
+    move,
+  };
+});
+
+mySnake.onEndGame((gameData) => {
+  console.log(gameData);
+
+  console.log("END");
+});
+
+mySnake.start();
+
+```
 
 Todo:
 
-- [ ] Figure out how to write intellisense docs for types - I don't want to make classes for everything
+- [ ] Figure out how to write intellisense docs for types - I don't want to make
+  classes for everything
 - [ ] TypeDoc generated docs
 - [ ] Plugin architecture
 - [ ] Plugin: ngrok
