@@ -72,3 +72,7 @@ Todo:
 - [ ] Plugin: Monitoring site
   - Watch games live
   - View fun stuff
+- [ ] CLI
+  - [ ] Scaffolding
+  - [ ] Ngroking
+  - [ ] Pushing to \[repl.it/glitch/netlify/whatever\]
