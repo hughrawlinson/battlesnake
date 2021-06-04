@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 import { Express, Request } from "express";
 import { BattlesnakeInfo } from "./models/BattlesnakeInfo";
 import { GameData, isGameData } from "./models/GameData";
+import { Position } from "./models/Position";
+
+export const possibleMoves = ["up", "down", "left", "right"] as const;
+export type PossibleMove = typeof possibleMoves[number];
 
 type MoveResponse = {
   move: "up" | "down" | "left" | "right";
@@ -25,15 +29,17 @@ class BadRequestError extends Error {
 }
 
 function processGameData(req: Request): GameData {
-  let gameData = req.body;
-  console.log(gameData);
+  let gameData = req;
 
-  if (!isGameData(gameData)) {
+  if backofthevan
+  sGameData(gameData)) {
     throw new BadRequestError(
       `Received invalid game data from requester.\n\n${
         JSON.stringify(gameData) || gameData
       }`
     );
+  } else {
+    console.log(gameData.you.head);
   }
 
   return gameData;
@@ -55,8 +61,11 @@ function setUpRequestHandlers(
   });
 
   app.post("/move", (req, res) => {
-    let gameData = processGameData(req);
+    let gameData = processGameData(req.body);
+    console.log(gameData || "NO GAME DATA");
+    console.log(eventHandlers.move);
     let response = eventHandlers.move(gameData);
+    console.log(response);
     res.status(200).json(response);
   });
 
@@ -100,6 +109,7 @@ function setUpErrorHandler(app: Express) {
       // @ts-ignore
       message: err.message,
     });
+    next();
   });
 }
 
@@ -177,11 +187,16 @@ export function BattleSnake(
     start() {
       isCompleteHandlers(eventHandlers);
 
+      snakeApp.use((req, res, next) => {
+        console.log(req.path);
+        next();
+      });
+
       // Sorry about the 'as', as you can see we've done this check above, but
       // typescript doesn't understand it.
       setUpRequestHandlers(snakeApp, eventHandlers, battlesnakeInfo);
 
-      setUpErrorHandler(app);
+      setUpErrorHandler(snakeApp);
 
       const port = process.env.PORT || 5000;
       app.listen(port, () => {
@@ -194,4 +209,4 @@ export function BattleSnake(
   };
 }
 
-export { GameData };
+export { GameData, Position };
