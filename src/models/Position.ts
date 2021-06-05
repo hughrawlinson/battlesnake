@@ -5,9 +5,9 @@ export type Position = {
 export function isPosition(value: any): value is Position {
   return (
     value &&
-    value.x &&
+    value.hasOwnProperty("x") &&
     typeof value.x === "number" &&
-    value.y &&
+    value.hasOwnProperty("y") &&
     typeof value.y === "number"
   );
 }

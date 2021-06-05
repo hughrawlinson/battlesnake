@@ -8,17 +8,17 @@ import { Position } from "./models/Position";
 export const possibleMoves = ["up", "down", "left", "right"] as const;
 export type PossibleMove = typeof possibleMoves[number];
 
-type MoveResponse = {
+interface MoveResponse {
   move: "up" | "down" | "left" | "right";
   shout?: string;
-};
+}
 
-type EventHandlers = {
+interface EventHandlers {
   getBattlesnake: () => BattlesnakeInfo;
   startGame: (request: GameData) => any;
   move: (request: GameData) => MoveResponse;
   endGame: (request: GameData) => any;
-};
+}
 
 class BadRequestError extends Error {
   statusCode: number;
@@ -29,17 +29,15 @@ class BadRequestError extends Error {
 }
 
 function processGameData(req: Request): GameData {
-  let gameData = req;
+  let gameData = req.body;
 
-  if backofthevan
-  sGameData(gameData)) {
+  if (!isGameData(gameData)) {
+    isGameData(gameData);
     throw new BadRequestError(
-      `Received invalid game data from requester.\n\n${
+      `Received invalid game data from on post to ${req.path}.\n\n${
         JSON.stringify(gameData) || gameData
       }`
     );
-  } else {
-    console.log(gameData.you.head);
   }
 
   return gameData;
@@ -51,21 +49,21 @@ function setUpRequestHandlers(
   snake: BattlesnakeInfo
 ) {
   app.get("/", (req, res) => {
+    // @ts-ignore
+    console.log("pre-handler: " + new Date() - req.startTime);
     res.status(200).json(snake);
   });
 
   app.post("/start", (req, res) => {
+    // @ts-ignore
+    res.status(200).send("ok");
     let gameData = processGameData(req);
     eventHandlers.startGame(gameData);
-    res.status(200).send("ok");
   });
 
   app.post("/move", (req, res) => {
-    let gameData = processGameData(req.body);
-    console.log(gameData || "NO GAME DATA");
-    console.log(eventHandlers.move);
+    let gameData = processGameData(req);
     let response = eventHandlers.move(gameData);
-    console.log(response);
     res.status(200).json(response);
   });
 
@@ -102,25 +100,25 @@ function isCompleteHandlers(
 function setUpErrorHandler(app: Express) {
   // @types/express doesn't have a signature for registering an error handler
   // @ts-ignore
-  app.use(function (err, req, res, next) {
-    //@ts-ignore
-    res.json({
-      status: "error",
-      // @ts-ignore
-      message: err.message,
-    });
-    next();
-  });
+  // app.use(function (err, req, res, next) {
+  //   //@ts-ignore
+  //   res.json({
+  //     status: "error",
+  //     // @ts-ignore
+  //     message: err.message,
+  //   });
+  // next();
+  // });
 }
 
 function makeBaseUrl(name: string, snakeInfo: BattlesnakeInfo) {
   return `/snake/${name}/${snakeInfo.version}`;
 }
 
-type BattleSnakeOptions = {
+interface BattleSnakeOptions {
   baseUrl?: string;
   app?: Express;
-};
+}
 
 /**
  * BattleSnake - a constructor for your Battlesnake
@@ -135,8 +133,19 @@ export function BattleSnake(
   options?: BattleSnakeOptions
 ) {
   const app: Express = (options && options.app) || express();
-  app.use(bodyParser.json());
   const snakeApp: Express = express();
+  // snakeApp.use((req, res, next) => {
+  //   // @ts-ignore
+  //   req.startTime = new Date();
+  //   req.on("close", () => {
+  //     //@ts-ignore
+  //     let elapsedMilliseconds = new Date() - req.startTime;
+  //     console.log("endpoint: " + req.path);
+  //     console.log("timeout: " + elapsedMilliseconds);
+  //   });
+  //   next();
+  // });
+  app.use(bodyParser.json());
   const baseUrl =
     (options && options.baseUrl) || makeBaseUrl(snakeName, battlesnakeInfo);
   app.use(baseUrl, snakeApp);
@@ -187,10 +196,10 @@ export function BattleSnake(
     start() {
       isCompleteHandlers(eventHandlers);
 
-      snakeApp.use((req, res, next) => {
-        console.log(req.path);
-        next();
-      });
+      // snakeApp.use((req, res, next) => {
+      //   console.log(req.path);
+      //   next();
+      // });
 
       // Sorry about the 'as', as you can see we've done this check above, but
       // typescript doesn't understand it.

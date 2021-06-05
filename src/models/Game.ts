@@ -11,7 +11,8 @@ function isRuleSet(value: any): value is RuleSet {
     typeof value.version === "string"
   );
 }
-export type Game = {
+
+export interface Game {
   /**
    * A unique identifier for this Game.
    * _Example: "totally-unique-game-id"_
@@ -27,8 +28,32 @@ export type Game = {
    * _Example: 500_
    */
   timeout?: number;
-};
-export function isGame(value: any): value is Game {
+}
+
+function debugValidity(value: any) {
+  console.log(
+    value && value.id && typeof value.id == "string"
+      ? "game.id is valid"
+      : "game.id is invalid"
+  );
+  console.log(
+    value && value.ruleset && isRuleSet(value.ruleset)
+      ? "game.ruleset is valid"
+      : "game.ruleset is invalid"
+  );
+  console.log(
+    value && value.timeout
+      ? typeof value.timeout === "number"
+      : true
+      ? "game.timeout is valid"
+      : "game.timeout is valid"
+  );
+}
+
+export function isGame(value: any, debug: boolean = false): value is Game {
+  if (debug) {
+    debugValidity(value);
+  }
   return value &&
     value.id &&
     typeof value.id === "string" &&

@@ -14,39 +14,24 @@ const mySnake = BattleSnake("hugh-fun-times-snake", {
   version: "0.0.1",
 });
 
-// function directionVectorToDirection({ x, y }: Position) {
-//   if (x === 0) {
-//     return y > 0 ? "up" : "down";
-//   } else {
-//     return x > 0 ? "right" : "left";
-//   }
-// }
-
-// function currentDirection(gameData: GameData): Position {
-//   return {
-//     x: gameData.you.body[0].x - gameData.you.head.x,
-//     y: gameData.you.body[0].y - gameData.you.head.y,
-//   };
-// }
-
 function filterOwnBody(moves: PossibleMove[], gameData: GameData) {
   let remainingMoves = moves.slice(0);
   let headPosition = gameData.you.head;
-  gameData.you.body.forEach((bodyChunkPosition) => {
+  [gameData.you.head, ...gameData.you.body].forEach((bodyChunkPosition) => {
     if (bodyChunkPosition.x === headPosition.x) {
       if (headPosition.y - 1 === bodyChunkPosition.y) {
-        remainingMoves = remainingMoves.filter((move) => move !== "left");
+        remainingMoves = remainingMoves.filter((move) => move !== "down");
       }
       if (headPosition.y + 1 === bodyChunkPosition.y) {
-        remainingMoves = remainingMoves.filter((move) => move !== "right");
+        remainingMoves = remainingMoves.filter((move) => move !== "up");
       }
     }
     if (bodyChunkPosition.y === headPosition.y) {
       if (headPosition.x - 1 === bodyChunkPosition.x) {
-        remainingMoves = remainingMoves.filter((move) => move !== "down");
+        remainingMoves = remainingMoves.filter((move) => move !== "left");
       }
       if (headPosition.x + 1 === bodyChunkPosition.x) {
-        remainingMoves = remainingMoves.filter((move) => move !== "up");
+        remainingMoves = remainingMoves.filter((move) => move !== "right");
       }
     }
   });
@@ -56,24 +41,35 @@ function filterOwnBody(moves: PossibleMove[], gameData: GameData) {
 function filterWalls(moves: PossibleMove[], gameData: GameData) {
   let remainingMoves = moves.slice(0);
   if (gameData.you.head.x === 0) {
-    remainingMoves.filter((option) => option !== "right");
-  } else if (gameData.you.head.x === gameData.board.width) {
-    remainingMoves.filter((option) => option !== "right");
+    remainingMoves = remainingMoves.filter((option) => option !== "left");
+  } else if (gameData.you.head.x === gameData.board.width - 1) {
+    remainingMoves = remainingMoves.filter((option) => option !== "right");
+  }
+  if (gameData.you.head.y === 0) {
+    remainingMoves = remainingMoves.filter((option) => option !== "down");
+  } else if (gameData.you.head.y === gameData.board.height - 1) {
+    remainingMoves = remainingMoves.filter((option) => option !== "up");
   }
   return remainingMoves;
 }
 
-mySnake.onEndGame(() => {});
-mySnake.onStartGame(() => {});
+mySnake.onEndGame((gameData) => {
+  console.log("game over: " + gameData.game.id);
+});
+mySnake.onStartGame((gameData) => {
+  console.log("game started: " + gameData.game.id);
+});
 mySnake.onMove((gameData) => {
-  console.log(gameData);
   const moveOptions = possibleMoves.slice(0);
   const moveOptionsMinusWalls = filterWalls(moveOptions, gameData);
   const moveOptionsMinusWallsMinusBody = filterOwnBody(
     moveOptionsMinusWalls,
     gameData
   );
-  const move = moveOptions[Math.floor(Math.random() * 4)];
+  const move =
+    moveOptionsMinusWallsMinusBody[
+      Math.floor(Math.random() * moveOptionsMinusWallsMinusBody.length)
+    ];
   console.log(move);
   return {
     move,
