@@ -8,19 +8,19 @@ import { Game, isGame } from "./Game";
  */
 export interface GameData {
   /**
-   * Data about the game in question
+   * Game Object describing the game being played.
    */
   game: Game;
   /**
-   * An integer, n+1 where n is the number of turns that have already elapsed
+   * Turn number of the game being played (0 for new games).
    */
   turn: number;
   /**
-   * An object containing the current state of the game board
+   * Board Object describing the initial state of the game board.
    */
   board: Board;
   /**
-   * An object representing the position and state of your own battlesnake
+   * Battlesnake Object describing your Battlesnake.
    */
   you: You;
 }

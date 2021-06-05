@@ -1,7 +1,15 @@
-type RuleSet = {
+interface RuleSet {
+  /**
+   * A label for the given ruleset, given to it by the Battlesnake team. A
+   * ruleset represents a Battlesnake Game Mode.
+   */
   name: string;
+  /**
+   * A version number, representing the iteration of the represented Game Mode.
+   */
   version: string;
-};
+}
+
 function isRuleSet(value: any): value is RuleSet {
   return (
     value &&
@@ -15,16 +23,19 @@ function isRuleSet(value: any): value is RuleSet {
 export interface Game {
   /**
    * A unique identifier for this Game.
+   *
    * _Example: "totally-unique-game-id"_
    */
   id: string;
   /**
    * Information about the ruleset being used to run this game.
+   *
    * _Example: {"name":"standard", "version": "v1.2.3"}_
    */
   ruleset: RuleSet;
   /**
    * How many milliseconds your snake has to respond to requests for this Game.
+   *
    * _Example: 500_
    */
   timeout?: number;

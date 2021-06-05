@@ -1,14 +1,64 @@
 import { Position, isPositionArray, isPosition } from "./Position";
 
 export interface Battlesnake {
+  /**
+   * A unique identifier for this Battlesnake in the context of the current Game
+   *
+   * _Example: "totally-unique-snake-id"_
+   */
   id: string;
+  /**
+   * Name given to this Battlesnake by its author.
+   *
+   * _Example: "Sneky McSnek Face"_
+   */
   name: string;
+  /**
+   * Health value of this Battlesnake, between 0 and 100 inclusively.
+   *
+   * _Example: 54_
+   */
   health: number;
+  /**
+   * Array of coordinates representing this Battlesnake's location on the game
+   * board. This array is ordered from head to tail.
+   *
+   * _Example: [{"x":0,"y":0},...,{"x":2,"y":0}]_
+   */
   body: Position[];
+  /**
+   * The previous response time of this Battlesnake, in milliseconds'. "0" means
+   * the Battlesnake timed out and failed to respond.
+   *
+   * _Example: "450"_
+   */
   latency: string;
+  /**
+   * Coordinates for this Battlesnake's head. Equivalent to the first element of
+   * the body array.
+   *
+   * _Example: {"x": 0, "y": 0}_
+   */
   head: Position;
+  /**
+   * Length of this Battlesnake from head to tail. Equivalent to the length of
+   * the body array.
+   *
+   * _Example: 3_
+   */
   length: number;
+  /**
+   * Message shouted by this Battlesnake on the previous turn.
+   *
+   * _Example: "why are we shouting??"_
+   */
   shout: string;
+  /**
+   * The squad that the Battlesnake belongs to. Used to identify squad members
+   * in Squad Mode games.
+   *
+   * _Example: "1"_
+   */
   squad?: string;
 }
 function debugValidity(value: any) {

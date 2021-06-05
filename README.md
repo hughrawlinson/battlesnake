@@ -57,9 +57,6 @@ mySnake.start();
 
 Todo:
 
-- [ ] Figure out how to write intellisense docs for types - I don't want to make
-  classes for everything
-- [ ] TypeDoc generated docs
 - [ ] Plugin architecture
 - [ ] Plugin: ngrok
 - [ ] Plugin: repl.it

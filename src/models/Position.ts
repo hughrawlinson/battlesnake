@@ -1,7 +1,15 @@
-export type Position = {
+export interface Position {
+  /**
+   * The x-axis component of a two dimensional coordinate representing a point
+   * on the Battlesnake board.
+   */
   x: number;
+  /**
+   * The y-axis component of a two dimensional coordinate representing a point
+   * on the Battlesnake board.
+   */
   y: number;
-};
+}
 export function isPosition(value: any): value is Position {
   return (
     value &&

@@ -1,8 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 import { Express, Request } from "express";
+import { Board } from "./models/Board";
+import { Battlesnake, You } from "./models/Battlesnake";
 import { BattlesnakeInfo } from "./models/BattlesnakeInfo";
 import { GameData, isGameData } from "./models/GameData";
+import { Game } from "./models/Game";
 import { Position } from "./models/Position";
 
 export const possibleMoves = ["up", "down", "left", "right"] as const;
@@ -218,4 +221,4 @@ export function BattleSnake(
   };
 }
 
-export { GameData, Position };
+export { GameData, Position, Battlesnake, You, BattlesnakeInfo, Board, Game };

@@ -21,13 +21,20 @@ export type BattlesnakeInfo = {
   color: string;
   /**
    * Displayed head of this Battlesnake. See Personalization Docs for available
-   * options _Example: "default"_
+   * options.
+   *
+   * _Example: "default"_
    */
   head: string;
   /**
    * Displayed tail of this Battlesnake. See Personalization Docs for available
    * options.
+   *
+   * _Example: "default"_
    */
   tail: string;
+  /**
+   * A version number or tag for your snake.
+   */
   version: string;
 };

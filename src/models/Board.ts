@@ -1,13 +1,39 @@
 import { Battlesnake, isBattlesnakeArray } from "./Battlesnake";
 import { Position, isPositionArray } from "./Position";
 
-export type Board = {
+export interface Board {
+  /**
+   * Height of the game board.
+   *
+   * _Example: 11_
+   */
   height: number;
+  /**
+   * Width of the game board.
+   *
+   * _Example: 11_
+   */
   width: number;
+  /**
+   * Array of coordinates representing food locations on the game board.
+   *
+   * _Example: [{"x": 5, "y": 5}, ..., {"x": 2, "y": 2}]_
+   */
   food: Position[];
+  /**
+   * Array of coordinates representing hazardous locations on the game board.
+   * These will only appear in some game modes.
+   *
+   * _Example: [{"x": 0, "y": 1}, ..., {"x": 0, "y": 1}]_
+   */
   hazards: Position[];
+  /**
+   * Array of Battlesnake Objects representing all Battlesnakes remaining on the game board (including yourself if you haven't been eliminated).
+   *
+   * _Example: [{"id": "snake-one", ...}, ...]_
+   */
   snakes: Battlesnake;
-};
+}
 
 function debugValidity(value: any) {
   console.log(
