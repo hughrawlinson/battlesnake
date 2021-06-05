@@ -1,6 +1,6 @@
 import { Position, isPositionArray, isPosition } from "./Position";
 
-export type Battlesnake = {
+export interface Battlesnake {
   id: string;
   name: string;
   health: number;
@@ -9,11 +9,68 @@ export type Battlesnake = {
   head: Position;
   length: number;
   shout: string;
-  squad: string;
-};
-export function isBattlesnake(value: any): value is Battlesnake {
-  return (
+  squad?: string;
+}
+function debugValidity(value: any) {
+  console.log(
+    value && value.id && typeof value.id === "string"
+      ? "you.id is valid"
+      : "you.id is invalid"
+  );
+  console.log(
+    value && value.name && typeof value.name === "string"
+      ? "you.name is valid"
+      : "you.name is invalid"
+  );
+  console.log(
+    value && value.health && typeof value.health === "number"
+      ? "you.health is valid"
+      : "you.health is invalid"
+  );
+  console.log(
+    value && value.body && isPositionArray(value.body)
+      ? "you.body is valid"
+      : "you.body is invalid"
+  );
+  console.log(
     value &&
+      value.hasOwnProperty("latency") &&
+      typeof value.latency === "string"
+      ? "you.latency is valid"
+      : "you.latency is invalid"
+  );
+  console.log(
+    value && value.head && isPosition(value.head)
+      ? "you.head is valid"
+      : "you.head is invalid"
+  );
+  console.log(
+    value && value.length && typeof value.length === "number"
+      ? "you.length is valid"
+      : "you.length is invalid"
+  );
+  console.log(
+    value && value.hasOwnProperty("shout") && typeof value.shout === "string"
+      ? "value.shout is valid"
+      : "value.shout is invalid"
+  );
+  console.log(
+    value && value.squad
+      ? typeof value.squad === "string"
+      : true
+      ? "value.squad is valid"
+      : "value.squad is invalid"
+  );
+}
+
+export function isBattlesnake(
+  value: any,
+  debug: boolean = false
+): value is Battlesnake {
+  if (debug) {
+    debugValidity(value);
+  }
+  return value &&
     value.id &&
     typeof value.id === "string" &&
     value.name &&
@@ -22,19 +79,25 @@ export function isBattlesnake(value: any): value is Battlesnake {
     typeof value.health === "number" &&
     value.body &&
     isPositionArray(value.body) &&
-    value.latency &&
+    value.hasOwnProperty("latency") &&
     typeof value.latency === "string" &&
     value.head &&
     isPosition(value.head) &&
     value.length &&
     typeof value.length === "number" &&
-    value.shout &&
+    value.hasOwnProperty("squad") &&
     typeof value.shout === "string" &&
-    value.squad &&
-    typeof value.squad === "string"
-  );
+    value.squad
+    ? typeof value.squad === "string"
+    : true;
 }
-export function isBattlesnakeArray(value: any): value is Position[] {
+export function isBattlesnakeArray(
+  value: any,
+  debug: boolean = false
+): value is Position[] {
+  if (debug) {
+    debugValidity(value);
+  }
   return (
     value &&
     Array.isArray(value) &&
