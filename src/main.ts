@@ -196,6 +196,11 @@ export function BattleSnake(
     onEndGame(handler: EventHandlers["endGame"]) {
       eventHandlers.endGame = handler;
     },
+    /**
+     * Once all your event handlers are registered, call this method to start
+     * your Battlesnake's server. All event handlers must be registered before
+     * starting, otherwise a detailed error will be thrown.
+     */
     start() {
       isCompleteHandlers(eventHandlers);
 
