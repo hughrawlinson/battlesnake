@@ -3,7 +3,7 @@ import {
   possibleMoves,
   PossibleMove,
   GameData,
-} from "../src/main";
+} from "battlesnake";
 
 import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
 

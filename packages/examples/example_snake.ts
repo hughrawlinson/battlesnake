@@ -1,4 +1,4 @@
-import { BattleSnake } from "../src/main";
+import { BattleSnake } from "battlesnake";
 
 const mySnake = BattleSnake("super-perfect-snake", {
   apiversion: "1",

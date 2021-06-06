@@ -1,11 +1,8 @@
 {
-  "name": "battlesnake-js-bindings-and-types",
+  "name": "battlesnake-js-bindings-and-types-monorepo",
+  "private": "true",
   "version": "1.0.0",
-  "description": "",
-  "main": "out/main",
-  "scripts": {
-    "build": "rollup -c rollup.config.js"
-  },
+  "description": "a monorepo to house battlesnake tooling",
   "keywords": [
     "battlesnake"
   ],
@@ -21,12 +18,7 @@
     "rollup": "^2.50.6",
     "typescript": "^4.3.2"
   },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1"
-  },
   "workspaces": [
-    "./plugins/*",
-    "./example"
+    "packages/**"
   ]
 }

@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"Nothing to build here!\""
   },
+  "dependencies": {
+    "battlesnake-plugin-ngrok": "*"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
