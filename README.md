@@ -57,9 +57,6 @@ mySnake.start();
 
 Todo:
 
-- [ ] Plugin architecture
-- [ ] Plugin: ngrok
-- [ ] Plugin: repl.it
 - [ ] Plugin: Metrics API endpoint
   - Number of requests handled
   - Average latency
