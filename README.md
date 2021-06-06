@@ -11,7 +11,8 @@ Javascript. Features include:
 - TSDoc annotations for in-editor docs and intellisense
 - A concise, type safe API for implementing snakes, without worrying about HTTP
   or infra dependencies, so that you can focus on your snake logic
-- ....more to come!
+- Built in tunneling using ngrok, so you don't have to think about it in
+  development
 
 ### Example Battlesnake
 
