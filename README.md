@@ -55,6 +55,37 @@ mySnake.start();
 
 ```
 
+## Built in ngrok support
+
+Using the ngrok plugin, you can run ngrok inside your snake process, and not
+have to worry about keeping a separate terminal window open. The ngrok plugin
+will also automatically not run in production or test NODE_ENVs (unless you tell
+it to), so you don't need to worry about writing that logic.
+
+### Ngrok Example
+
+```ts
+import { BattleSnake } from 'battlesnake-js-bindings-and-types';
+import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
+
+const mySnake = BattleSnake(
+  "your-snake",
+  {
+    apiversion: "1",
+    author: "",
+    color: "#000000",
+    head: "default",
+    tail: "default",
+    version: "0.0.1",
+  },
+  {
+    plugins: [battlesnakeNgrok()],
+  }
+);
+
+// ... your snake implementation
+```
+
 Todo:
 
 - [ ] Plugin: Metrics API endpoint
