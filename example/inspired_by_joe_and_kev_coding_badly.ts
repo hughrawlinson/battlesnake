@@ -5,14 +5,22 @@ import {
   GameData,
 } from "../src/main";
 
-const mySnake = BattleSnake("hugh-fun-times-snake", {
-  apiversion: "1",
-  author: "hughrawlinson",
-  color: "#00FF00",
-  head: "default",
-  tail: "default",
-  version: "0.0.1",
-});
+import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
+
+const mySnake = BattleSnake(
+  "hugh-fun-times-snake",
+  {
+    apiversion: "1",
+    author: "hughrawlinson",
+    color: "#00FF00",
+    head: "default",
+    tail: "default",
+    version: "0.0.1",
+  },
+  {
+    plugins: [battlesnakeNgrok()],
+  }
+);
 
 function filterOwnBody(moves: PossibleMove[], gameData: GameData) {
   let remainingMoves = moves.slice(0);

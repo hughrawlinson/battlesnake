@@ -3,13 +3,13 @@ import { Position, isPositionArray } from "./Position";
 
 export interface Board {
   /**
-   * Height of the game board.
+   * The number of rows in the y-axis of the game board.
    *
    * _Example: 11_
    */
   height: number;
   /**
-   * Width of the game board.
+   * The number of columns in the x-axis of the game board.
    *
    * _Example: 11_
    */

@@ -7,6 +7,7 @@ import { BattlesnakeInfo } from "./models/BattlesnakeInfo";
 import { GameData, isGameData } from "./models/GameData";
 import { Game } from "./models/Game";
 import { Position } from "./models/Position";
+import { PluginInterface } from "./PluginInterface";
 
 export const possibleMoves = ["up", "down", "left", "right"] as const;
 export type PossibleMove = typeof possibleMoves[number];
@@ -121,6 +122,7 @@ function makeBaseUrl(name: string, snakeInfo: BattlesnakeInfo) {
 interface BattleSnakeOptions {
   baseUrl?: string;
   app?: Express;
+  plugins?: PluginInterface[];
 }
 
 /**
@@ -135,6 +137,7 @@ export function BattleSnake(
   battlesnakeInfo: BattlesnakeInfo,
   options?: BattleSnakeOptions
 ) {
+  const plugins = [...(options?.plugins ?? [])];
   const app: Express = (options && options.app) || express();
   const snakeApp: Express = express();
   // snakeApp.use((req, res, next) => {
@@ -215,11 +218,16 @@ export function BattleSnake(
 
       setUpErrorHandler(snakeApp);
 
-      const port = process.env.PORT || 5000;
+      const port = process.env.PORT || "5000";
       app.listen(port, () => {
         console.log(
           `BattleSnake ${snakeName} reporting for duty!\n\nhttp://0.0.0.0:${port}${baseUrl}`
         );
+        plugins.forEach((plugin) => {
+          if (typeof plugin.onListening === "function") {
+            plugin.onListening(port, baseUrl);
+          }
+        });
       });
     },
     app: snakeApp,
