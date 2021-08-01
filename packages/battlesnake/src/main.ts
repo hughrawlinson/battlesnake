@@ -212,8 +212,6 @@ export function BattleSnake(
       //   next();
       // });
 
-      // Sorry about the 'as', as you can see we've done this check above, but
-      // typescript doesn't understand it.
       setUpRequestHandlers(snakeApp, eventHandlers, battlesnakeInfo);
 
       setUpErrorHandler(snakeApp);
