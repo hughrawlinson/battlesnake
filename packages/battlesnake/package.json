@@ -1,6 +1,6 @@
 {
   "name": "battlesnake",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "description": "A breezy developer experience for Battlesnake",
   "main": "out/main",
   "types": "out/main.d",
