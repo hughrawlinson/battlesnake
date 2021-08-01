@@ -98,7 +98,7 @@ if (promptAnswers.typescript) {
     },
   };
 } else {
-  await writeFile(workdir, "./index.js", populatedTemplate);
+  await writeFile("./index.js", populatedTemplate);
 }
 
 const packagejson = JSON.parse(await readFile("./package.json", "utf8"));
