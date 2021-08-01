@@ -86,19 +86,3 @@ const mySnake = BattleSnake(
 
 // ... your snake implementation
 ```
-
-Todo:
-
-- [ ] Plugin: Metrics API endpoint
-  - Number of requests handled
-  - Average latency
-  - Most recent game started
-  - Whatever else is interesting
-- [ ] Plugin: Game State API?
-- [ ] Plugin: Monitoring site
-  - Watch games live
-  - View fun stuff
-- [ ] CLI
-  - [ ] Scaffolding
-  - [ ] Ngroking
-  - [ ] Pushing to \[repl.it/glitch/netlify/whatever\]
