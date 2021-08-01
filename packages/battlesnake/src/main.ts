@@ -12,7 +12,7 @@ import { PluginInterface } from "./PluginInterface";
 export const possibleMoves = ["up", "down", "left", "right"] as const;
 export type PossibleMove = typeof possibleMoves[number];
 
-interface MoveResponse {
+export interface MoveResponse {
   move: "up" | "down" | "left" | "right";
   shout?: string;
 }
