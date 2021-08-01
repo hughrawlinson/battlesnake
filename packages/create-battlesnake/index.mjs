@@ -65,7 +65,7 @@ console.dir(promptAnswers);
 
 const templateString = promptAnswers.typescript
   ? "./template/index.ts"
-  : "./template/index.js";
+  : "./template/index.mjs";
 const template = Handlebars.compile(
   await readFile(new URL(templateString, import.meta.url), "utf8")
 );
@@ -84,6 +84,12 @@ let packagejsonDefaults = {
   name: `battlesnake-${paramCase(promptAnswers.snakename)}`,
   description: `${promptAnswers.codername}'s awesome battlesnake`,
   private: true,
+  scripts: {
+    start: "node index.mjs",
+  },
+  engines: {
+    node: ">=14.0.0",
+  },
 };
 
 if (promptAnswers.typescript) {
@@ -94,11 +100,12 @@ if (promptAnswers.typescript) {
     ...packagejsonDefaults,
     main: "index.ts",
     scripts: {
+      ...packagejsonDefaults.scripts,
       start: "ts-run index.ts",
     },
   };
 } else {
-  await writeFile("./index.js", populatedTemplate);
+  await writeFile("./index.mjs", populatedTemplate);
 }
 
 const packagejson = JSON.parse(await readFile("./package.json", "utf8"));
