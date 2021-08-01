@@ -1,0 +1,29 @@
+{
+  "name": "create-battlesnake",
+  "version": "0.1.0",
+  "description": "Scaffold out your new battlesnake",
+  "main": "index.mjs",
+  "bin": {
+    "create-battlesnake": "index.mjs"
+  },
+  "scripts": {
+    "emitDeclaration": "echo 'nothing to build here!'",
+    "build": "echo 'nothing to build here!'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.mjs",
+    "clean": "echo 'nothing to clean!'"
+  },
+  "keywords": [
+    "battlesnake"
+  ],
+  "author": "Hugh Rawlinson <hughr2005+battlesnake-libraries@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "handlebars": "^4.7.7",
+    "inquirer": "^8.1.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

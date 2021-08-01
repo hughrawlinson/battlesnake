@@ -1,11 +1,15 @@
 {
-  "name": "example",
+  "name": "battlesnake-examples",
+  "private": "true",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "emitDeclaration": "echo 'nothing to build here!'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Nothing to build here!\""
+    "build": "echo \"Nothing to build here!\"",
+    "clean": "echo 'nothing to clean!'",
+    "start": "echo 'nothing to start!'"
   },
   "dependencies": {
     "battlesnake-plugin-ngrok": "*"

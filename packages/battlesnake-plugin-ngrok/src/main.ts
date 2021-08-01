@@ -19,7 +19,6 @@ interface BattlesnakeNgrokOptions {
 export function battlesnakeNgrok(config?: BattlesnakeNgrokOptions) {
   const { authtoken } = config?.ngrokConfig ?? {};
   const binPath = join(__dirname, "../../../node_modules/ngrok/bin");
-  console.log(binPath);
   const prod =
     (process.env.NODE_ENV === "production") != config?.runInProduction;
   const test = (process.env.NODE_ENV === "test") != config?.runInTest;

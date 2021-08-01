@@ -1,17 +1,18 @@
 {
   "name": "battlesnake",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A breezy developer experience for Battlesnake",
   "main": "out/main",
   "types": "out/main.d",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "emitDeclaration": "tsc --declaration --emitDeclarationOnly --outDir ./out"
+    "emitDeclaration": "tsc --declaration --emitDeclarationOnly --outDir ./out",
+    "clean": "rm -rf ./out"
   },
   "keywords": [
     "battlesnake"
   ],
-  "author": "Hugh Rawlinson <hughr2005+battlesnake-libraries@gmail.com",
+  "author": "Hugh Rawlinson <hughr2005+battlesnake-libraries@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",

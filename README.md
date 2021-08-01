@@ -1,23 +1,34 @@
 # Battlesnake JS
 
-_This package isn't yet on a package registry, I don't want to namesquat._
-
-A wrapper library and types for Battlesnake, written in Typescript. Should work,
-but ymmv for now!
+A scaffolder, wrapper library and types for Battlesnake, written in Typescript.
 
 Battlesnake JS makes it really easy to write Battlesnakes in Typescript or
 Javascript. Features include:
 
+- Scaffolding new Battlesnakes with `create-battlesnake`
 - TSDoc annotations for in-editor docs and intellisense
 - A concise, type safe API for implementing snakes, without worrying about HTTP
   or infra dependencies, so that you can focus on your snake logic
 - Built in tunneling using ngrok, so you don't have to think about it in
   development
 
+## Getting Started
+
+1. Check that you've got a recent version of Node.js installed
+2. Run `npx create-battlesnake` and answer the questions
+3. `cd` into the newly created directory
+4. `npm run start` to run your snake!
+
+The ngrok plugin is installed by default. An ngrok tunnel will be created for
+your snake, and the url will be printed for you to copy and paste into your
+snake configuration on [play.battlesnake.com](https://play.battlesnake.com).
+
+Now you can focus on writing code to handle how your snake moves in the
+`onMove` handler! Happy hacking!
 ### Example Battlesnake
 
 ```ts
-import { BattleSnake } from "battlesnake-js-bindings-and-types";
+import { BattleSnake } from "battlesnake";
 
 const mySnake = BattleSnake("super-perfect-snake", {
   apiversion: "1",
