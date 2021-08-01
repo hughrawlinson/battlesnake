@@ -1,7 +1,5 @@
 # Battlesnake JS
 
-A scaffolder, wrapper library and types for Battlesnake, written in Typescript.
-
 Battlesnake JS makes it really easy to write Battlesnakes in Typescript or
 Javascript. Features include:
 
@@ -77,7 +75,7 @@ it to), so you don't need to worry about writing that logic.
 ### Ngrok Example
 
 ```ts
-import { BattleSnake } from 'battlesnake-js-bindings-and-types';
+import { BattleSnake } from 'battlesnake';
 import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
 
 const mySnake = BattleSnake(
