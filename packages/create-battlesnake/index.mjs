@@ -74,8 +74,7 @@ await mkdir(workdir);
 chdir(workdir);
 await execSync(`git init`);
 await execSync(`npm init -y`);
-await execSync(`npm link battlesnake battlesnake-plugin-ngrok`);
-// await execSync(`npm install --save battlesnake battlesnake-plugin-ngrok`);
+await execSync(`npm install --save battlesnake battlesnake-plugin-ngrok`);
 const populatedTemplate = template({
   ...promptAnswers,
   snakeNameCamel: camelCase(promptAnswers.snakename),
@@ -118,3 +117,6 @@ await writeFile(
     2
   )
 );
+
+await execSync(`git add .`);
+await execSync(`git commit -m "Initial Commit"`);
