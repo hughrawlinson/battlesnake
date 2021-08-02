@@ -17,5 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "ngrok": "^4.0.1"
+  },
+  "homepage": "https://github.com/hughrawlinson/battlesnake",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hughrawlinson/battlesnake.git"
   }
 }

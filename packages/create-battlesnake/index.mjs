@@ -64,8 +64,8 @@ try {
 console.dir(promptAnswers);
 
 const templateString = promptAnswers.typescript
-  ? "./template/index.ts"
-  : "./template/index.mjs";
+  ? "./template/index.ts.hbs"
+  : "./template/index.mjs.hbs";
 const template = Handlebars.compile(
   await readFile(new URL(templateString, import.meta.url), "utf8")
 );
