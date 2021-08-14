@@ -21,18 +21,21 @@ const promptAnswers = await inquirer.prompt([
     type: "input",
     name: "color",
     default: "#888888",
-    message: "What color do you want it to be?",
+    message:
+      "What color do you want it to be?\nhttps://docs.battlesnake.com/references/personalization#choosing-a-color",
   },
   {
     type: "input",
     name: "head",
-    message: "What head do you want it to have?",
+    message:
+      "What head do you want it to have?\nhttps://docs.battlesnake.com/references/personalization#choosing-a-head-and-tail",
     default: "default",
   },
   {
     type: "input",
     name: "tail",
-    message: "What tail do you want it to have?",
+    message:
+      "What tail do you want it to have?\nhttps://docs.battlesnake.com/references/personalization#choosing-a-head-and-tail",
     default: "default",
   },
   {
@@ -71,14 +74,19 @@ const template = Handlebars.compile(
 );
 
 await mkdir(workdir);
+
 chdir(workdir);
 await execSync(`git init`);
+console.log("Initializing git repo");
+console.log(`Installing npm dependencies`);
 await execSync(`npm init -y`);
 await execSync(`npm install --save battlesnake battlesnake-plugin-ngrok`);
 const populatedTemplate = template({
   ...promptAnswers,
   snakeNameCamel: camelCase(promptAnswers.snakename),
 });
+
+console.log(`Installed npm dependencies`);
 
 let packagejsonDefaults = {
   name: `battlesnake-${paramCase(promptAnswers.snakename)}`,
@@ -127,3 +135,12 @@ await writeFile(
 
 await execSync(`git add .`);
 await execSync(`git commit -m "Initial Commit"`);
+
+console.log(`Success! created ${promptAnswers.snakeName} at ${workdir}`);
+
+console.log(`
+We suggest that you begin by typing:
+
+  cd ${workdir}
+  npm start
+`);
