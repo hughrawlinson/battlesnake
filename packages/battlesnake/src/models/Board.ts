@@ -32,7 +32,7 @@ export interface Board {
    *
    * _Example: [{"id": "snake-one", ...}, ...]_
    */
-  snakes: Battlesnake;
+  snakes: Battlesnake[];
 }
 
 function debugValidity(value: any) {

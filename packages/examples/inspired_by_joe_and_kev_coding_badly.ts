@@ -2,7 +2,7 @@ import {
   BattleSnake,
   possibleMoves,
   PossibleMove,
-  GameData,
+  GameState,
 } from "battlesnake";
 
 import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
@@ -22,7 +22,7 @@ const mySnake = BattleSnake(
   }
 );
 
-function filterOwnBody(moves: PossibleMove[], gameData: GameData) {
+function filterOwnBody(moves: PossibleMove[], gameData: GameState) {
   let remainingMoves = moves.slice(0);
   let headPosition = gameData.you.head;
   [gameData.you.head, ...gameData.you.body].forEach((bodyChunkPosition) => {
@@ -46,7 +46,7 @@ function filterOwnBody(moves: PossibleMove[], gameData: GameData) {
   return remainingMoves;
 }
 
-function filterWalls(moves: PossibleMove[], gameData: GameData) {
+function filterWalls(moves: PossibleMove[], gameData: GameState) {
   let remainingMoves = moves.slice(0);
   if (gameData.you.head.x === 0) {
     remainingMoves = remainingMoves.filter((option) => option !== "left");
@@ -61,18 +61,18 @@ function filterWalls(moves: PossibleMove[], gameData: GameData) {
   return remainingMoves;
 }
 
-mySnake.onEndGame((gameData) => {
-  console.log("game over: " + gameData.game.id);
+mySnake.onEndGame((gameState) => {
+  console.log("game over: " + gameState.game.id);
 });
-mySnake.onStartGame((gameData) => {
-  console.log("game started: " + gameData.game.id);
+mySnake.onStartGame((gameState) => {
+  console.log("game started: " + gameState.game.id);
 });
-mySnake.onMove((gameData) => {
+mySnake.onMove((gameState) => {
   const moveOptions = possibleMoves.slice(0);
-  const moveOptionsMinusWalls = filterWalls(moveOptions, gameData);
+  const moveOptionsMinusWalls = filterWalls(moveOptions, gameState);
   const moveOptionsMinusWallsMinusBody = filterOwnBody(
     moveOptionsMinusWalls,
-    gameData
+    gameState
   );
   const move =
     moveOptionsMinusWallsMinusBody[

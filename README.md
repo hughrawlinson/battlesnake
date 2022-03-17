@@ -23,6 +23,7 @@ snake configuration on [play.battlesnake.com](https://play.battlesnake.com).
 
 Now you can focus on writing code to handle how your snake moves in the
 `onMove` handler! Happy hacking!
+
 ### Example Battlesnake
 
 ```ts
@@ -62,7 +63,6 @@ mySnake.onEndGame((gameData) => {
 });
 
 mySnake.start();
-
 ```
 
 ## Built in ngrok support
@@ -75,7 +75,7 @@ it to), so you don't need to worry about writing that logic.
 ### Ngrok Example
 
 ```ts
-import { BattleSnake } from 'battlesnake';
+import { BattleSnake } from "battlesnake";
 import { battlesnakeNgrok } from "battlesnake-plugin-ngrok";
 
 const mySnake = BattleSnake(
@@ -94,4 +94,23 @@ const mySnake = BattleSnake(
 );
 
 // ... your snake implementation
+```
+
+## Using just the types
+
+Although I recommend using the project generator, and the BattleSnake server
+wrapper, and the ngrok plugin to get the best developer experience out of this
+package, you can use the types directly if you want.
+
+```ts
+import { GameState } from "battlesnake";
+
+// Parser takes a string or an object, and throws if it encounters an invalid
+// game state.
+const newGameState = GameState.parse(request.body);
+
+// Now newGameState is a fully typed GameState object representing the payload
+// of the move request from the battlesnake server, complete with documentation
+// comments for hover-over intellisense.
+console.log(newGameState.turn);
 ```

@@ -4,7 +4,7 @@ import { Express, Request } from "express";
 import { Board } from "./models/Board";
 import { Battlesnake, You } from "./models/Battlesnake";
 import { BattlesnakeInfo } from "./models/BattlesnakeInfo";
-import { GameData, isGameData } from "./models/GameData";
+import { GameState } from "./models/GameState";
 import { Game } from "./models/Game";
 import { Position } from "./models/Position";
 import { PluginInterface } from "./PluginInterface";
@@ -17,11 +17,23 @@ export interface MoveResponse {
   shout?: string;
 }
 
+function parseBattlesnakeRequestPayload(req: Request): GameState {
+  try {
+    return GameState.parse(req.body);
+  } catch (e) {
+    throw new BadRequestError(
+      `Received invalid game data from on post to ${req.path}.\n\n${
+        JSON.stringify(req.body) || req.body
+      }`
+    );
+  }
+}
+
 interface EventHandlers {
   getBattlesnake: () => BattlesnakeInfo;
-  startGame: (request: GameData) => any;
-  move: (request: GameData) => MoveResponse;
-  endGame: (request: GameData) => any;
+  startGame: (request: GameState) => any;
+  move: (request: GameState) => MoveResponse;
+  endGame: (request: GameState) => any;
 }
 
 class BadRequestError extends Error {
@@ -30,21 +42,6 @@ class BadRequestError extends Error {
     super(message);
     this.statusCode = 422;
   }
-}
-
-function processGameData(req: Request): GameData {
-  let gameData = req.body;
-
-  if (!isGameData(gameData)) {
-    isGameData(gameData);
-    throw new BadRequestError(
-      `Received invalid game data from on post to ${req.path}.\n\n${
-        JSON.stringify(gameData) || gameData
-      }`
-    );
-  }
-
-  return gameData;
 }
 
 function setUpRequestHandlers(
@@ -61,18 +58,18 @@ function setUpRequestHandlers(
   app.post("/start", (req, res) => {
     // @ts-ignore
     res.status(200).send("ok");
-    let gameData = processGameData(req);
+    let gameData = parseBattlesnakeRequestPayload(req);
     eventHandlers.startGame(gameData);
   });
 
   app.post("/move", (req, res) => {
-    let gameData = processGameData(req);
+    let gameData = parseBattlesnakeRequestPayload(req);
     let response = eventHandlers.move(gameData);
     res.status(200).json(response);
   });
 
   app.post("/end", (req, res) => {
-    let gameData = processGameData(req);
+    let gameData = parseBattlesnakeRequestPayload(req);
     eventHandlers.endGame(gameData);
     res.status(200).send("ok");
   });
@@ -232,4 +229,4 @@ export function BattleSnake(
   };
 }
 
-export { GameData, Position, Battlesnake, You, BattlesnakeInfo, Board, Game };
+export { GameState, Position, Battlesnake, You, BattlesnakeInfo, Board, Game };
