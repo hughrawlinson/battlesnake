@@ -15,7 +15,7 @@
   "author": "Hugh Rawlinson <hughr2005+battlesnake-libraries@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.2",
     "express": "^4.17.1"
   },
   "homepage": "https://github.com/hughrawlinson/battlesnake",
