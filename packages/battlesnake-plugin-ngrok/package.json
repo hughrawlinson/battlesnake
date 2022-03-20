@@ -16,7 +16,7 @@
   "author": "Hugh Rawlinson <hughr2005+battlesnake-libraries@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ngrok": "^4.0.1"
+    "ngrok": "^4.3.1"
   },
   "homepage": "https://github.com/hughrawlinson/battlesnake",
   "repository": {
